@@ -1,33 +1,35 @@
-var express = require('express');
-var path = require('path');
-var mongoose = require('mongoose');
-var config = require('./config/database');
+const express = require('express');
+const dotenv = require('dotenv');
+const morgan = require('morgan');
+const bodyparser = require("body-parser");
+const path = require('path');
 
+const connectDB = require('./server/database/connection');
 
-//connect to db
-mongoose.connect(config.database);
-var db = mongoose.connection;
-db.on('error', console.error.bind(console, 'connection error'));
-db.once('open', function(){
-    console.log('Connected to MongoDB');
-});
+const app = express();
 
-//init app
-var app = express();
+dotenv.config( { path : 'config.env'} )
+const PORT = process.env.PORT || 8080
 
-//view engine setup
-app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'ejs');
+// log requests
+app.use(morgan('tiny'));
 
-//set public folder
-app.use(express.static(path.join(__dirname, 'public')));
+// mongodb connection
+connectDB();
 
-app.get('/', function(req, res) {
-    res.send('working');
-});
+// parse request to body-parser
+app.use(bodyparser.urlencoded({ extended : true}))
 
-//start the server
-var port = 3000;
-app.listen(port, function(){
-    console.log('Server started on port ' + port);
-});
+// set view engine
+app.set("view engine", "ejs")
+//app.set("views", path.resolve(__dirname, "views/ejs"))
+
+// load assets
+app.use('/css', express.static(path.resolve(__dirname, "assets/css")))
+app.use('/img', express.static(path.resolve(__dirname, "assets/img")))
+app.use('/js', express.static(path.resolve(__dirname, "assets/js")))
+
+// load routers
+app.use('/', require('./server/routes/router'))
+
+app.listen(PORT, ()=> { console.log(`Server is running on http://localhost:${PORT}`)});
