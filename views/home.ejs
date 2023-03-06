@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie-edge">
+        <title>Assignment</title>
+        <link href="/css/semantic.min.css" rel="stylesheet" type="text/css">
+        <link href="/css/style.css" rel="stylesheet" type="text/css">
+    </head>
+
+    <body>
+        <div class="wrapper">
+            <div class="ui massive menu">
+                <div class="ui container">
+                    <div class="ui menu">
+                        <div class="header item">
+                            <a href="/">Toy Store</a>
+                        </div>
+                    </div>
+                </div> 
+            </div>
+            <br><br><br>
+            <div class="ui container">
+                <form action="/add" class="ui form" method="post">
+                    <div class="ui three fields">
+                        <div class="field">
+                            <lable for="name" class="ui header green">Enter the toy name</lable>
+                            <input type="text" name="name">
+                        </div>
+                        <div class="field">
+                            <lable for="quantity" class="ui header green">Enter the quantity</lable>
+                            <input type="text" name="quantity">
+                        </div>
+                        <div class="field">
+                            <lable for="publisher" class="ui header green">Enter the publisher</lable>
+                            <input type="text" name="publisher">
+                        </div>
+                    </div>
+                    <div class="ui fluid field">
+                        <input type="submit" value="Submit" class="ui button green fluid">
+                    </div>
+                </form>
+
+                <br><br>
+
+                <table class="ui table">
+                    <thead>
+                        <th>Toy</th>
+                        <th>Quantity</th>
+                        <th>Publisher</th>
+                        <th>Edit</th>
+                        <th>Delete</th>
+                    </thead>
+                    <tbody>
+                        <!-- <tr>
+                            <td>PS5</td>
+                            <td>100</td>
+                            <td>Sony</td>
+                            <td><a href="" class="ui green button"><i class="edit ouline icon"></i></a></th>
+                            <td><a href="" class="ui red button"><i class="minus icon"></i></a></th>
+                        </tr> -->
+                        
+                        <% toys.forEach((element) => { %>
+                            <tr>
+                                <td><%- element.name %></td>
+                                <td><%- element.quantity %></td>
+                                <td><%- element.publisher %></td>
+                                <td><a href="/edit/<%= element._id %>" class="ui green button"><i class="edit outline icon"></i></a></td>
+                                <td><a href="/delete/<%= element._id %>" class="ui red button"><i class="minus icon"></i></a></td>
+                            </tr>
+                        <% }); %>
+                        
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <script src="js/semantic.min.js"></script>
+    </body>
+</html>
