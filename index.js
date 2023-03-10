@@ -4,7 +4,7 @@ const mongoose = require('mongoose');
 const app = express();
 const bodyparser = require('body-parser');
 
-const port = 3000;
+const port = process.env.port || 3000;
 mongoose.connect('mongodb+srv://admin:admin@assignmentcluster.l8ppzrb.mongodb.net/test');
 const db = mongoose.connection;
 db.on('error', ()=>console.log("Something wrong"));
@@ -20,5 +20,4 @@ app.use(bodyparser.json());
 
 app.use('/', homeRoute);
 
-var port_number = server.listen(process.env.PORT || 3000);
-app.listen(port_number);
+app.listen(port, () => console.log(`Example app listening on port ${port}`));

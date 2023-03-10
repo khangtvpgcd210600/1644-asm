@@ -5,7 +5,14 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon index.js"
+    "start": "nodemon main"
+  },
+  "bugs": {
+    "url": "https://github.com/khangtvpgcd210600/1644-asm/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/khangtvpgcd210600/1644-asm"
   },
   "author": "",
   "license": "ISC",
