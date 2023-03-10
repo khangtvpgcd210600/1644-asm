@@ -1,12 +1,12 @@
-const express = require('express');
-const homeRoute = require('./routes/home');
-const mongoose = require('mongoose');
-const app = express();
-const bodyparser = require('body-parser');
+var express = require('express');
+var homeRoute = require('./routes/home');
+var mongoose = require('mongoose');
+var app = express();
+var bodyparser = require('body-parser');
 
-const port = process.env.port || 3000;
+var port = process.env.PORT || 3000;
 mongoose.connect('mongodb+srv://admin:admin@assignmentcluster.l8ppzrb.mongodb.net/test');
-const db = mongoose.connection;
+var db = mongoose.connection;
 db.on('error', ()=>console.log("Something wrong"));
 db.once('open', ()=>{
     console.log("DB connected");
@@ -20,4 +20,6 @@ app.use(bodyparser.json());
 
 app.use('/', homeRoute);
 
-app.listen(port);
+app.listen(port, function() {
+    console.log("App is running on port " + port);
+});
